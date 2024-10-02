@@ -1,0 +1,28 @@
+{
+  "name": "bestmarketplace-backend",
+  "version": "1.1.0",
+  "author": "sfleta",
+  "license": "Open RAIL License",
+  "private": true,
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.16.10",
+    "@types/pg": "^8.11.10",
+    "@types/sequelize": "^4.28.20",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "scripts": {
+      "start": "webpack serve",
+      "clean": "npm cache clean --force && rm -rf node_modules package-lock.json dist"
+  }
+}

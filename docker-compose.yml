@@ -1,0 +1,34 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  backend:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres  # Имя пользователя PostgreSQL по умолчанию.
+      # POSTGRES_PASSWORD: ''    # Установите ваш пароль.
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: postgres  # Имя базы данных по умолчанию.
+    ports:
+      - "5432:5432"  # Проброс порта для PostgreSQL.
+    volumes:
+      - ./backend/init:/docker-entrypoint-initdb.d  # Монтируем директорию с SQL скриптами
+
+  api:
+    build:
+      context: ./backend  # Путь к директории с бекендом.
+      dockerfile: Dockerfile  # Имя Dockerfile (по умолчанию).
+    ports:
+      - "5000:5000"  # Проброс порта для API.
+    depends_on:
+      - backend  # API зависит от базы данных.
+    restart: on-failure  # Перезапускать контейнер в случае сбоя.
+
+  frontend:
+    build:
+      context: ./frontend  # Путь к директории с фронтендом.
+      dockerfile: Dockerfile  # Имя Dockerfile (по умолчанию).
+    ports:
+      - "3000:3000"  # Проброс порта для фронтенда.
+    depends_on:
+      - api  # Фронтенд зависит от API.
